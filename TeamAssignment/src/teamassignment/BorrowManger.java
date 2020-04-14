@@ -35,7 +35,8 @@ public class BorrowManger extends DBManager{
 				{
 					Book book = bm.getBook(rs.getString(1));
 					User user = um.getUser(rs.getString(2));
-					borrow_list.add(new BorrowedBook(book, user, today));
+					String borrow_day = rs.getString(3);
+					borrow_list.add(new BorrowedBook(book, user, borrow_day));
 				} 
 			} catch (SQLException e) {
 				// TODO: handle exception
@@ -55,6 +56,10 @@ public class BorrowManger extends DBManager{
 		// TODO Auto-generated method stub
 		for(int i=0;i<borrow_list.size();i++) {
 			if(borrow_list.get(i).getUser().equals(user)) {
+//				System.out.println("testestest");
+//				System.out.println(borrow_list.get(i).getBorrowDay());
+//				System.out.println(today);
+				System.out.println(diffOfDate(borrow_list.get(i).getBorrowDay(), today));
 				if(diffOfDate(borrow_list.get(i).getBorrowDay(), today)>7) {
 					System.out.print(borrow_list.get(i));
 					System.out.println(" 연체되었습니다!!!");
