@@ -23,7 +23,8 @@ public class BookManager extends DBManager{
 				rs = pstmt.executeQuery();
 				while(rs.next())
 				{
-					book_list.add(new Book(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5)));
+					book_list.add(new Book(rs.getString(1), rs.getString(2), 
+							rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6)));
 				} 
 			} catch (SQLException e) {
 				// TODO: handle exception
@@ -39,6 +40,15 @@ public class BookManager extends DBManager{
 		for(int i=0;i<book_list.size();i++) {
 			System.out.println(book_list.get(i));
 		}
+	}
+	
+	public Book getBook(String id) {
+		for(int i=0;i<book_list.size();i++) {
+			if(book_list.get(i).getId().equals(id)) {
+				return book_list.get(i);
+			}
+		}
+		return null;
 	}
 
 

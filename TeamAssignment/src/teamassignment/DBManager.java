@@ -29,4 +29,8 @@ public abstract class DBManager {
 	}
 	protected abstract void readDB();
 	public abstract void showAll();
+	
+	
+
 }
+

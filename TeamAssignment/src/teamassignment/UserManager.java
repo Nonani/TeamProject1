@@ -51,6 +51,7 @@ public class UserManager extends DBManager {
 				pstmt.setString(4, user.getPhone());
 				pstmt.execute();
 				System.out.println("삽입 성공");
+				user_list.add(user);
 			}catch (SQLException e) {
 				// TODO: handle exception
 				System.out.println("중복된 아이디가 존재합니다.");
@@ -60,7 +61,7 @@ public class UserManager extends DBManager {
 		else
 			System.out.println("삽입 실패");
 	}
-	public boolean Login(String id, String pwd){
+	public boolean Login(String id, String pwd){	//로그인 확인 : 절차 아이디 비번이 존재하면 true
 		String sql = "select * from user where id = ? and password = ?";
 		PreparedStatement pstmt = null;
         try {
@@ -86,5 +87,13 @@ public class UserManager extends DBManager {
             }
         }
         return false;
+	}
+	public User getUser(String id) {
+		for(int i=0;i<user_list.size();i++) {
+			if(user_list.get(i).getId().equals(id)) {
+				return user_list.get(i);
+			}
+		}
+		return null;
 	}
 }
