@@ -6,10 +6,12 @@ public class MainClass {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
+
 		Scanner scan = new Scanner(System.in);
+		System.out.print("오늘의 날짜를 입력하세요 ex)20200414 : ");
+		String today = scan.nextLine();
 		while(true) {
-			System.out.print("오늘의 날짜를 입력하세요 ex)20200414 : ");
-			String today = scan.nextLine();
+			
 			BookManager bookm = new BookManager();
 //			bookm.showAll();
 			UserManager userm = new UserManager();
@@ -26,9 +28,30 @@ public class MainClass {
 				String id = scan.nextLine();
 				System.out.print("비밀번호 : ");
 				String pwd = scan.nextLine();
-				if(id.equals("admin")&&pwd.equals("admin")) {
-					AdminMode();
-				}else {
+				if(id.equals("admin")&&pwd.equals("admin")) {	//관리자 모드
+					System.out.println("관리자 모드 입니다.");
+					System.out.println("1 : 유저 정보 / 2 : 책 정보 / 3 : 대출 중인 책 / 4 : 연체 중인 책");
+					System.out.print("input : ");
+					String input = scan.nextLine();
+					switch(input.charAt(0)) {
+					case '1':
+						userm.showAll();												
+						break;
+					case '2':
+						bookm.showAll();
+						break;
+					case '3':
+						borrowm.showAll();
+						break;
+					case '4':
+						//아직 구현 안함
+						break;
+					default:
+						System.out.println("잘못된 입력형식입니다!!");
+						
+					}
+					
+				}else {											//유저 모드
 					if(userm.Login(id, pwd)) {
 						System.out.println("사용자 모드");
 						User user = userm.getUser(id);
@@ -42,7 +65,24 @@ public class MainClass {
 						String input = scan.nextLine();
 						switch(input.charAt(0)) {
 						case '1':
+						{
 							System.out.println(user);
+							System.out.print("개인 정보를 수정하시겠습니까 ? (y/n): ");
+							String str = scan.nextLine();
+							if(str.equals("y")||str.equals("Y")) {
+								System.out.println("변경을 원치 않을 경우 엔터를 눌러주세요!!");
+								
+								System.out.print("비밀번호 : ");
+								String changedpwd = scan.nextLine();
+								System.out.println(changedpwd);
+								System.out.print("이름 : ");
+								String changedname = scan.nextLine();
+								System.out.print("전화번호 : ");
+								String changedphone = scan.nextLine();
+								userm.UpdateUserInfo(id, changedpwd, changedname, changedphone);
+							}
+
+						}														
 							break;
 						case '2':
 						{
@@ -63,7 +103,7 @@ public class MainClass {
 							borrowm.showAll(user);
 							break;
 						default:
-								
+							System.out.println("잘못된 입력형식입니다!!");
 							
 						}
 					}else

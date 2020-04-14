@@ -96,4 +96,34 @@ public class UserManager extends DBManager {
 		}
 		return null;
 	}
+	public void UpdateUserInfo(String id, String changedpwd, String changedname, String changedphone) {
+		User user = getUser(id);
+		String sql = "update user set password = ?, name = ?, phone = ? where id = ?";
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+
+			if(!changedpwd.equals("")) {
+				user.setPassword(changedpwd);
+				
+			}
+			if(!changedname.equals("")) {
+				user.setPassword(changedname);
+			}
+			if(!changedphone.equals("")) {
+				user.setPassword(changedphone);
+			}
+			
+			pstmt.setString(1, user.getPassword());
+			pstmt.setString(2, user.getName());
+			pstmt.setString(3, user.getPhone());
+			pstmt.setString(4, user.getId());
+			pstmt.execute();
+			
+		}catch (SQLException e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		
+	}
 }
